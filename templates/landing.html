@@ -1,0 +1,243 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow | Organize Your Day</title>
+
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <a href="{% url 'landing' %}" class="brand">
+            <div class="brand-icon">T</div>
+            <span>TaskFlow</span>
+        </a>
+
+        <nav class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#about">About</a>
+        </nav>
+
+        <div class="nav-actions">
+            <a href="{% url 'login' %}" class="nav-login">Log in</a>
+            <a href="{% url 'signup' %}" class="nav-signup">Get Started <span>→</span></a>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Hero section -->
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="hero-label">
+                    <span class="label-dot"></span>
+                    YOUR PERSONAL PRODUCTIVITY SPACE
+                </div>
+
+                <h1>
+                    Less chaos.<br>
+                    More <span>getting things done.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Bring your tasks, deadlines, and priorities together
+                    in one simple workspace. Stay organized, focus on what
+                    matters, and make every day count.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="{% url 'signup' %}" class="primary-button">
+                        Create your free account
+                        <span>→</span>
+                    </a>
+
+                    <a href="{% url 'login' %}" class="secondary-button">
+                        I already have an account
+                    </a>
+                </div>
+
+                <div class="hero-note">
+                    <span class="note-check">✓</span>
+                    Simple to use. Built to keep you organized.
+                </div>
+
+            </div>
+
+            <!-- Product preview -->
+            <div class="hero-visual">
+
+                <div class="visual-glow"></div>
+
+                <div class="dashboard-preview">
+
+                    <div class="preview-topbar">
+                        <div class="preview-brand">
+                            <div class="mini-brand-icon">T</div>
+                            <span>TaskFlow</span>
+                        </div>
+                        <div class="preview-avatar">JD</div>
+                    </div>
+
+                    <div class="preview-body">
+
+                        <div class="preview-greeting">
+                            <span>YOUR WORKSPACE</span>
+                            <h3>Good things start with a plan.</h3>
+                            <p>Here's a glimpse of your organized day.</p>
+                        </div>
+
+                        <div class="preview-stats">
+                            <div class="stat-card">
+                                <span>Total tasks</span>
+                                <strong>12</strong>
+                                <small>Things on your list</small>
+                            </div>
+
+                            <div class="stat-card">
+                                <span>Completed</span>
+                                <strong>08</strong>
+                                <small>Progress made</small>
+                            </div>
+                        </div>
+
+                        <div class="preview-task-heading">
+                            <strong>Today's priorities</strong>
+                            <span>YOUR TASKS</span>
+                        </div>
+
+                        <div class="preview-task">
+                            <div class="task-check checked">✓</div>
+                            <div class="task-info">
+                                <strong>Finish project documentation</strong>
+                                <span>Completed</span>
+                            </div>
+                            <span class="priority low">Low</span>
+                        </div>
+
+                        <div class="preview-task">
+                            <div class="task-check"></div>
+                            <div class="task-info">
+                                <strong>Review pending assignments</strong>
+                                <span>Due today</span>
+                            </div>
+                            <span class="priority high">High</span>
+                        </div>
+
+                        <div class="preview-task">
+                            <div class="task-check"></div>
+                            <div class="task-info">
+                                <strong>Plan tomorrow's schedule</strong>
+                                <span>Upcoming</span>
+                            </div>
+                            <span class="priority medium">Medium</span>
+                        </div>
+
+                        <div class="preview-progress">
+                            <div class="progress-label">
+                                <span>Daily progress</span>
+                                <strong>67%</strong>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="floating-note">
+                    <div class="floating-icon">✓</div>
+                    <div>
+                        <strong>You're making progress!</strong>
+                        <span>Keep the momentum going.</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Features section -->
+        <section class="features-section" id="features">
+
+            <div class="section-heading">
+                <span class="eyebrow">BUILT FOR YOUR EVERYDAY</span>
+                <h2>Everything you need to stay on track.</h2>
+                <p>
+                    No unnecessary complexity. Just the tools you need
+                    to manage your work effectively.
+                </p>
+            </div>
+
+            <div class="feature-grid">
+
+                <article class="feature-card">
+                    <div class="feature-icon purple-icon">✓</div>
+                    <h3>Organize your tasks</h3>
+                    <p>
+                        Create, update, and manage your tasks
+                        from one convenient workspace.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon orange-icon">◷</div>
+                    <h3>Never miss a deadline</h3>
+                    <p>
+                        Set due dates and keep an eye on
+                        upcoming and overdue tasks.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon green-icon">↗</div>
+                    <h3>Focus on priorities</h3>
+                    <p>
+                        Categorize tasks by priority and
+                        focus on what deserves your attention.
+                    </p>
+                </article>
+
+            </div>
+
+        </section>
+
+        <!-- Bottom CTA -->
+        <section class="bottom-cta" id="about">
+            <div>
+                <span class="eyebrow">YOUR NEXT STEP STARTS HERE</span>
+                <h2>Ready to get things under control?</h2>
+                <p>Create your workspace and start organizing your day.</p>
+            </div>
+
+            <a href="{% url 'signup' %}" class="cta-button">
+                Get started today <span>→</span>
+            </a>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <a href="{% url 'landing' %}" class="footer-brand">
+            <span class="footer-brand-icon">T</span>
+            TaskFlow
+        </a>
+
+        <p>© 2026 TaskFlow. Plan better. Do better.</p>
+
+        <div class="footer-links">
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'signup' %}">Sign Up</a>
+        </div>
+    </footer>
+
+</body>
+</html>

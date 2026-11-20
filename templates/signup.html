@@ -1,0 +1,125 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | TaskFlow</title>
+
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+</head>
+
+<body>
+
+    <main class="auth-container">
+
+        <!-- Left branding panel -->
+        <section class="brand-panel">
+            <div class="brand">
+                <div class="brand-icon">T</div>
+                <span>TaskFlow</span>
+            </div>
+
+            <div class="brand-content">
+                <span class="eyebrow">START SOMETHING GREAT</span>
+
+                <h1>One step closer to getting things done.</h1>
+
+                <p>
+                    Create your personal workspace, organize your priorities,
+                    and take control of your day.
+                </p>
+            </div>
+
+            <div class="brand-footer">
+                <span>Plan better. Do better.</span>
+                <span>© 2026 TaskFlow</span>
+            </div>
+        </section>
+
+        <!-- Right signup panel -->
+        <section class="form-panel">
+
+            <div class="mobile-brand">
+                <div class="brand-icon">T</div>
+                <span>TaskFlow</span>
+            </div>
+
+            <div class="form-content">
+
+                <div class="form-heading">
+                    <span class="eyebrow">GET STARTED</span>
+                    <h2>Create your account</h2>
+                    <p>Join TaskFlow and organize your work better.</p>
+                </div>
+
+                {% if error %}
+                    <div class="error-message">
+                        {{ error }}
+                    </div>
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="name">Full name</label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Enter your name"
+                            autocomplete="name"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Create a password"
+                            autocomplete="new-password"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" class="signup-button">
+                        Create account
+                        <span>→</span>
+                    </button>
+                </form>
+
+                <div class="login-prompt">
+                    Already have an account?
+                    <a href="{% url 'login' %}">Sign in</a>
+                </div>
+
+            </div>
+
+            <div class="form-footer">
+                Your personal workspace starts here
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

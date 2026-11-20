@@ -1,0 +1,136 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TaskFlow | Delete Task</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/delete_task.css' %}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">T</div>
+            <span>TaskFlow<span class="brand-dot">.</span></span>
+        </div>
+
+        <div class="sidebar-section">
+            <p class="sidebar-label">WORKSPACE</p>
+
+            <a href="{% url 'task_list' %}" class="nav-link">
+                <span class="nav-icon">▦</span>
+                <span>My Tasks</span>
+            </a>
+
+            <a href="{% url 'add_task' %}" class="nav-link">
+                <span class="nav-icon">＋</span>
+                <span>Create Task</span>
+            </a>
+        </div>
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-note">
+                <div class="note-icon">✦</div>
+                <p>Small steps every day lead to big results.</p>
+            </div>
+
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="logout-button">
+                    <span class="nav-icon">↪</span>
+                    <span>Sign out</span>
+                </button>
+            </form>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <p class="breadcrumb">Workspace / My Tasks / Delete</p>
+                <h1>Delete task</h1>
+            </div>
+
+            <a href="{% url 'task_list' %}" class="back-button">
+                ← Back to tasks
+            </a>
+        </header>
+
+
+        <!-- DELETE CONFIRMATION -->
+        <section class="confirmation-wrapper">
+
+            <div class="warning-icon">!</div>
+
+            <p class="eyebrow">CONFIRMATION REQUIRED</p>
+
+            <h2>Delete this task?</h2>
+
+            <p class="confirmation-description">
+                You're about to permanently delete this task.
+                This action cannot be undone.
+            </p>
+
+
+            <div class="task-preview">
+
+                <div class="preview-label">TASK TO BE DELETED</div>
+
+                <h3>{{ task.title }}</h3>
+
+                <p>
+                    {{ task.description|default:"No description provided." }}
+                </p>
+
+            </div>
+
+
+            <div class="confirmation-actions">
+
+                <a href="{% url 'task_list' %}" class="cancel-button">
+                    Keep this task
+                </a>
+
+                <form method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="delete-button">
+                        <span>×</span> Confirm delete
+                    </button>
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <footer class="page-footer">
+            <p>Made for getting things done. <span>✦</span></p>
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>
+

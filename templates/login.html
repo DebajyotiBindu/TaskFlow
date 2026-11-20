@@ -1,0 +1,113 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | TaskFlow</title>
+
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+
+<body>
+
+    <main class="auth-container">
+
+        <!-- Left branding panel -->
+        <section class="brand-panel">
+            <div class="brand">
+                <div class="brand-icon">T</div>
+                <span>TaskFlow</span>
+            </div>
+
+            <div class="brand-content">
+                <span class="eyebrow">YOUR SPACE. YOUR PACE.</span>
+
+                <h1>Make room for what matters.</h1>
+
+                <p>
+                    Organize your tasks, keep track of deadlines,
+                    and make every day a little more productive.
+                </p>
+            </div>
+
+            <div class="brand-footer">
+                <span>Plan better. Do better.</span>
+                <span>© 2026 TaskFlow</span>
+            </div>
+        </section>
+
+        <!-- Right login panel -->
+        <section class="form-panel">
+
+            <div class="mobile-brand">
+                <div class="brand-icon">T</div>
+                <span>TaskFlow</span>
+            </div>
+
+            <div class="form-content">
+
+                <div class="form-heading">
+                    <span class="eyebrow">WELCOME BACK</span>
+                    <h2>Sign in to your account</h2>
+                    <p>Enter your credentials to continue.</p>
+                </div>
+
+                {% if error %}
+                    <div class="error-message">
+                        {{ error }}
+                    </div>
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" class="login-button">
+                        Sign in
+                        <span>→</span>
+                    </button>
+                </form>
+
+                <div class="signup-prompt">
+                    Don't have an account?
+                    <a href="{% url 'signup' %}">Create one</a>
+                </div>
+
+            </div>
+
+            <div class="form-footer">
+                Secure access to your personal workspace
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,293 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TaskFlow | My Tasks</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/task_list.css' %}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">T</div>
+            <span>TaskFlow<span class="brand-dot">.</span></span>
+        </div>
+
+        <div class="sidebar-section">
+            <p class="sidebar-label">WORKSPACE</p>
+
+            <a href="{% url 'task_list' %}" class="nav-link active">
+                <span class="nav-icon">▦</span>
+                <span>My Tasks</span>
+            </a>
+
+            <a href="{% url 'add_task' %}" class="nav-link">
+                <span class="nav-icon">＋</span>
+                <span>Create Task</span>
+            </a>
+        </div>
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-note">
+                <div class="note-icon">✦</div>
+                <p>Small steps every day lead to big results.</p>
+            </div>
+
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="logout-button">
+                    <span class="nav-icon">↪</span>
+                    <span>Sign out</span>
+                </button>
+            </form>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <p class="breadcrumb">Workspace / My Tasks</p>
+                <h1>My Tasks</h1>
+            </div>
+
+            <a href="{% url 'add_task' %}" class="primary-button">
+                <span>＋</span> New Task
+            </a>
+        </header>
+
+
+        <!-- MESSAGES -->
+        {% if messages %}
+        <div class="messages-container">
+            {% for message in messages %}
+                <div class="message-alert">
+                    <span class="message-check">✓</span>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+
+        <!-- PAGE INTRO -->
+        <section class="welcome-section">
+            <div>
+                <p class="eyebrow">YOUR PERSONAL WORKSPACE</p>
+                <h2>Stay focused. Get things done.</h2>
+                <p class="welcome-description">
+                    Organize your priorities and keep track of everything that matters.
+                </p>
+            </div>
+
+            <div class="date-card">
+                <span class="date-icon">◷</span>
+                <div>
+                    <span class="date-label">TASK OVERVIEW</span>
+                    <strong>{{ tasks|length }} task{{ tasks|length|pluralize }}</strong>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- FILTER PANEL -->
+        <section class="filter-panel">
+
+            <div class="filter-heading">
+                <div>
+                    <h3>All tasks</h3>
+                    <p>Find and organize your tasks</p>
+                </div>
+
+                <a href="{% url 'task_list' %}" class="clear-filters">
+                    Clear filters ↗
+                </a>
+            </div>
+
+            <form method="GET" action="{% url 'task_list' %}" class="filter-form">
+
+                <div class="filter-group">
+                    <label for="priority">Priority</label>
+                    <select name="priority" id="priority" onchange="this.form.submit()">
+                        <option value="" {% if not priority_filter %}selected{% endif %}>All priorities</option>
+                        <option value="low" {% if priority_filter == 'low' %}selected{% endif %}>Low</option>
+                        <option value="medium" {% if priority_filter == 'medium' %}selected{% endif %}>Medium</option>
+                        <option value="high" {% if priority_filter == 'high' %}selected{% endif %}>High</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="completed">Status</label>
+                    <select name="completed" id="completed" onchange="this.form.submit()">
+                        <option value="" {% if not completed_filter %}selected{% endif %}>All statuses</option>
+                        <option value="true" {% if completed_filter == 'true' %}selected{% endif %}>Completed</option>
+                        <option value="false" {% if completed_filter == 'false' %}selected{% endif %}>Pending</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="due_status">Deadline</label>
+                    <select name="due_status" id="due_status" onchange="this.form.submit()">
+                        <option value="" {% if not due_status_filter %}selected{% endif %}>All deadlines</option>
+                        <option value="overdue" {% if due_status_filter == 'overdue' %}selected{% endif %}>Overdue</option>
+                        <option value="today" {% if due_status_filter == 'today' %}selected{% endif %}>Due today</option>
+                        <option value="upcoming" {% if due_status_filter == 'upcoming' %}selected{% endif %}>Upcoming</option>
+                        <option value="none" {% if due_status_filter == 'none' %}selected{% endif %}>No deadline</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="due_date">Due date</label>
+                    <input
+                        type="date"
+                        name="due_date"
+                        id="due_date"
+                        value="{{ due_date_filter|default:'' }}"
+                        onchange="this.form.submit()"
+                    >
+                </div>
+
+                <div class="filter-group">
+                    <label for="sort_by">Sort by</label>
+                    <select name="sort_by" id="sort_by" onchange="this.form.submit()">
+                        <option value="" {% if not sort_by %}selected{% endif %}>Default order</option>
+                        <option value="title" {% if sort_by == 'title' %}selected{% endif %}>Title</option>
+                        <option value="priority_model" {% if sort_by == 'priority_model' %}selected{% endif %}>Priority</option>
+                        <option value="completed" {% if sort_by == 'completed' %}selected{% endif %}>Completion</option>
+                    </select>
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- TASK LIST -->
+        <section class="tasks-section">
+
+            <div class="tasks-heading">
+                <div>
+                    <h3>Your task list</h3>
+                    <p>Everything you need to get done</p>
+                </div>
+
+                <span class="task-count">{{ tasks|length }} shown</span>
+            </div>
+
+
+            <div class="task-list">
+
+                {% for task in tasks %}
+
+                <article class="task-card {% if task.completed %}completed-task{% endif %}">
+
+                    <div class="task-indicator">
+                        {% if task.completed %}
+                            <span class="status-check">✓</span>
+                        {% else %}
+                            <span class="status-circle"></span>
+                        {% endif %}
+                    </div>
+
+                    <div class="task-main">
+
+                        <div class="task-title-row">
+                            <h4>{{ task.title }}</h4>
+
+                            {% if task.completed %}
+                                <span class="status-badge completed-badge">Completed</span>
+                            {% elif task.overdue %}
+                                <span class="status-badge overdue-badge">Overdue</span>
+                            {% else %}
+                                <span class="status-badge pending-badge">In progress</span>
+                            {% endif %}
+                        </div>
+
+                        <p class="task-description">
+                            {{ task.description|default:"No description provided." }}
+                        </p>
+
+                        <div class="task-meta">
+
+                            <span class="priority-badge priority-{{ task.priority_model }}">
+                                <span class="priority-dot"></span>
+                                {{ task.get_priority_model_display }}
+                            </span>
+
+                            <span class="meta-divider"></span>
+
+                            <span class="deadline-meta {% if task.overdue %}deadline-overdue{% endif %}">
+                                <span>◷</span>
+
+                                {% if task.due_date %}
+                                    {{ task.due_date|date:"M d, Y" }}
+                                {% else %}
+                                    No deadline
+                                {% endif %}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="task-actions">
+                        <a href="{% url 'edit_task' task.id %}" class="action-button edit-action">
+                            Edit
+                        </a>
+
+                        <a href="{% url 'delete_task' task.id %}" class="action-button delete-action">
+                            Delete
+                        </a>
+                    </div>
+
+                </article>
+
+                {% empty %}
+
+                <div class="empty-state">
+                    <div class="empty-icon">✦</div>
+                    <h3>No tasks found</h3>
+                    <p>
+                        Nothing here right now. Try changing your filters
+                        or create a new task to get started.
+                    </p>
+                    <a href="{% url 'add_task' %}" class="primary-button">
+                        ＋ Create your first task
+                    </a>
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+
+        <footer class="page-footer">
+            <p>Made for getting things done. <span>✦</span></p>
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

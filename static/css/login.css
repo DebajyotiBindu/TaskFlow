@@ -1,0 +1,342 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --navy: #17233d;
+    --purple: #635bdb;
+    --purple-dark: #5149c5;
+    --background: #f5f6fa;
+    --text: #202b40;
+    --muted: #8992a5;
+    --border: #e8eaf0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 35px 20px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+}
+
+/* Main container */
+
+.auth-container {
+    width: 100%;
+    max-width: 1000px;
+    min-height: 590px;
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    background: white;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 25px 70px rgba(23, 35, 61, 0.10);
+}
+
+/* Branding panel */
+
+.brand-panel {
+    background: var(--navy);
+    color: white;
+    padding: 42px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+.brand-panel::before {
+    content: "";
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    right: -150px;
+    bottom: -100px;
+}
+
+.brand-panel::after {
+    content: "";
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 50%;
+    right: -100px;
+    bottom: -50px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.brand-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    background: var(--purple);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.brand-content {
+    position: relative;
+    z-index: 1;
+    max-width: 340px;
+}
+
+.eyebrow {
+    display: inline-block;
+    color: #a9a4ff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+}
+
+.brand-content h1 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 38px;
+    line-height: 1.25;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.brand-content p {
+    color: #b7bfd0;
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+.brand-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    color: #8995aa;
+    font-size: 11px;
+}
+
+/* Form panel */
+
+.form-panel {
+    padding: 55px 65px 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.form-content {
+    width: 100%;
+    max-width: 350px;
+    margin: auto;
+}
+
+.form-heading {
+    margin-bottom: 35px;
+}
+
+.form-heading h2 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 27px;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 9px;
+}
+
+.form-heading p {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* Input fields */
+
+.form-group {
+    margin-bottom: 23px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 9px;
+    color: #354158;
+}
+
+.form-group input {
+    width: 100%;
+    height: 49px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 0 15px;
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--text);
+    outline: none;
+    background: #fafbfe;
+    transition: 0.2s ease;
+}
+
+.form-group input::placeholder {
+    color: #aab1bf;
+}
+
+.form-group input:focus {
+    border-color: var(--purple);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(99, 91, 219, 0.10);
+}
+
+/* Login button */
+
+.login-button {
+    width: 100%;
+    height: 49px;
+    border: none;
+    border-radius: 9px;
+    background: var(--purple);
+    color: white;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    transition: 0.2s ease;
+    margin-top: 10px;
+}
+
+.login-button span {
+    font-size: 19px;
+    transition: transform 0.2s ease;
+}
+
+.login-button:hover {
+    background: var(--purple-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 7px 18px rgba(99, 91, 219, 0.22);
+}
+
+.login-button:hover span {
+    transform: translateX(4px);
+}
+
+/* Signup link */
+
+.signup-prompt {
+    text-align: center;
+    margin-top: 28px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.signup-prompt a {
+    color: var(--purple);
+    font-weight: 700;
+    text-decoration: none;
+    margin-left: 4px;
+}
+
+.signup-prompt a:hover {
+    text-decoration: underline;
+}
+
+/* Error message */
+
+.error-message {
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: #fff0f0;
+    border: 1px solid #ffdada;
+    color: #c03939;
+    font-size: 12px;
+    margin-bottom: 22px;
+    line-height: 1.5;
+}
+
+/* Footer */
+
+.form-footer {
+    text-align: center;
+    color: #a1a8b6;
+    font-size: 11px;
+    margin-top: 35px;
+}
+
+.mobile-brand {
+    display: none;
+}
+
+/* Responsive design */
+
+@media (max-width: 760px) {
+    body {
+        padding: 20px;
+    }
+
+    .auth-container {
+        max-width: 480px;
+        min-height: auto;
+        grid-template-columns: 1fr;
+    }
+
+    .brand-panel {
+        display: none;
+    }
+
+    .form-panel {
+        padding: 35px 30px;
+    }
+
+    .mobile-brand {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        font-family: 'Manrope', sans-serif;
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--navy);
+        margin-bottom: 45px;
+    }
+
+    .form-content {
+        margin: 0 auto;
+    }
+
+    .form-footer {
+        margin-top: 45px;
+    }
+}
+
+@media (max-width: 400px) {
+    .form-panel {
+        padding: 30px 22px;
+    }
+
+    .form-heading h2 {
+        font-size: 23px;
+    }
+}

@@ -1,0 +1,222 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TaskFlow | Edit Task</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/edit_task.css' %}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">T</div>
+            <span>TaskFlow<span class="brand-dot">.</span></span>
+        </div>
+
+        <div class="sidebar-section">
+            <p class="sidebar-label">WORKSPACE</p>
+
+            <a href="{% url 'task_list' %}" class="nav-link active">
+                <span class="nav-icon">▦</span>
+                <span>My Tasks</span>
+            </a>
+
+            <a href="{% url 'add_task' %}" class="nav-link">
+                <span class="nav-icon">＋</span>
+                <span>Create Task</span>
+            </a>
+        </div>
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-note">
+                <div class="note-icon">✦</div>
+                <p>Small steps every day lead to big results.</p>
+            </div>
+
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="logout-button">
+                    <span class="nav-icon">↪</span>
+                    <span>Sign out</span>
+                </button>
+            </form>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <p class="breadcrumb">Workspace / My Tasks / Edit</p>
+                <h1>Edit task</h1>
+            </div>
+
+            <a href="{% url 'task_list' %}" class="back-button">
+                ← Back to tasks
+            </a>
+        </header>
+
+
+        <!-- PAGE INTRO -->
+        <section class="welcome-section">
+            <p class="eyebrow">REFINE YOUR WORKSPACE</p>
+            <h2>Make an update.</h2>
+            <p class="welcome-description">
+                Adjust your task details, update its progress, or change its deadline.
+            </p>
+        </section>
+
+
+        <!-- EDIT FORM -->
+        <section class="form-section">
+
+            <div class="form-heading">
+                <div class="form-heading-icon">✎</div>
+                <div>
+                    <h3>Update task details</h3>
+                    <p>Make the necessary changes below.</p>
+                </div>
+            </div>
+
+
+            <form method="POST" class="task-form">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="title">Task title <span>*</span></label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        value="{{ task.title }}"
+                        placeholder="Enter task title"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="description">Description <span>*</span></label>
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        rows="5"
+                        placeholder="Describe your task"
+                        required
+                    >{{ task.description }}</textarea>
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label for="due_date">Due date</label>
+
+                        <input
+                            type="date"
+                            id="due_date"
+                            name="due_date"
+                            value="{{ task.due_date|date:'Y-m-d' }}"
+                        >
+
+                        <small>Leave blank if there is no deadline.</small>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="priority">Priority</label>
+
+                        <select id="priority" name="priority">
+
+                            {% for value, display in task.PRIORITY_CHOICES %}
+                                <option
+                                    value="{{ value }}"
+                                    {% if task.priority_model == value %}selected{% endif %}
+                                >
+                                    {{ display }}
+                                </option>
+                            {% endfor %}
+
+                        </select>
+
+                        <small>Change the importance of this task.</small>
+                    </div>
+
+                </div>
+
+
+                <!-- COMPLETION STATUS -->
+                <div class="completion-box">
+
+                    <div class="completion-info">
+                        <div class="completion-icon">✓</div>
+
+                        <div>
+                            <h4>Task completed</h4>
+                            <p>Mark this task as finished.</p>
+                        </div>
+                    </div>
+
+                    <label class="toggle-switch">
+                        <input
+                            type="checkbox"
+                            id="completed"
+                            name="completed"
+                            {% if task.completed %}checked{% endif %}
+                        >
+                        <span class="toggle-slider"></span>
+                    </label>
+
+                </div>
+
+
+                <!-- ACTIONS -->
+                <div class="form-actions">
+
+                    <a href="{% url 'task_list' %}" class="cancel-button">
+                        Cancel
+                    </a>
+
+                    <button type="submit" class="submit-button">
+                        <span>✓</span> Save changes
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <footer class="page-footer">
+            <p>Made for getting things done. <span>✦</span></p>
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

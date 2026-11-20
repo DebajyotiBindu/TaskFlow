@@ -1,0 +1,60 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | TaskFlow</title>
+
+    <link rel="stylesheet" href="{% static 'css/404.css' %}">
+</head>
+
+<body>
+
+    <main class="error-container">
+
+        <div class="brand">
+            <div class="brand-icon">T</div>
+            <span>TaskFlow</span>
+        </div>
+
+        <div class="error-content">
+
+            <div class="error-illustration">
+                <span>4</span>
+                <div class="illustration-circle">
+                    <span>?</span>
+                </div>
+                <span>4</span>
+            </div>
+
+            <span class="eyebrow">OOPS! SOMETHING WENT MISSING</span>
+
+            <h1>Page not found</h1>
+
+            <p>
+                Looks like this page has wandered off.
+                The link may be broken, or the page may no longer exist.
+            </p>
+
+            <a href="{% url 'task_list' %}" class="home-button">
+                <span>←</span>
+                Back to my tasks
+            </a>
+
+            <div class="error-code">
+                ERROR CODE <strong>404</strong>
+            </div>
+
+        </div>
+
+        <footer>
+            © 2026 TaskFlow. Plan better. Do better.
+        </footer>
+
+    </main>
+
+</body>
+</html>
